@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Luis Montano Rojas</title>
 <meta name="description" content="Luis Montano Rojas, Full Stack Developer (Angular, .NET 8, AWS) based in Cochabamba, Bolivia. Available for remote work.">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Luis Montano Rojas · Full Stack Developer">
+<meta property="og:description" content="Angular · .NET 8 · AWS. Based in Cochabamba, Bolivia. Available for remote work.">
+<meta property="og:url" content="https://luismrojas.github.io/">
+<meta property="og:image" content="https://luismrojas.github.io/luis.jpg">
+<meta property="og:image:width" content="400">
+<meta property="og:image:height" content="400">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="luis.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -216,6 +225,14 @@ footer { padding: 24px 0 40px; font: 400 12px/1.5 var(--font-mono); color: var(-
 @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 @keyframes wordUp { from { transform: translateY(105%); } to { transform: none; } }
 .hero .status { animation: rise .6s cubic-bezier(.2,.7,.2,1) both; }
+.avatar {
+  display: block; width: 104px; height: 104px; max-width: 100%; margin-top: 26px;
+  border-radius: 50%; object-fit: cover; object-position: 50% 30%;
+  border: 4px solid var(--paper); box-shadow: 0 0 0 2px var(--accent);
+  animation: avatarIn .8s .05s cubic-bezier(.3,1.4,.5,1) both;
+}
+@keyframes avatarIn { from { opacity: 0; transform: scale(.7) rotate(-6deg); } to { opacity: 1; transform: none; } }
+@media (min-width: 720px) { .avatar { width: 136px; height: 136px; } }
 .hero h1 .w { display: block; overflow: hidden; padding-bottom: .04em; }
 .hero h1 .w > span { display: block; animation: wordUp .9s cubic-bezier(.2,.8,.2,1) both; }
 .hero h1 .w:nth-child(1) > span { animation-delay: .1s; }
@@ -340,6 +357,7 @@ html[data-lang="en"] .lang::before { transform: translateX(100%); }
       </span>
       <div class="hero-grid">
         <div>
+          <img class="avatar" src="luis.jpg" width="400" height="400" alt="Luis Montano Rojas">
           <h1><span class="w"><span>Luis Montano</span></span><span class="w last"><span>Rojas</span></span></h1>
           <p class="role">Full Stack Developer · Angular · .NET 8 · AWS</p>
           <p class="pitch">
