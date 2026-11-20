@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Luis Montano Rojas</title>
+<meta name="description" content="Luis Montano Rojas, Full Stack Developer (Angular, .NET 8, AWS) based in Cochabamba, Bolivia. Available for remote work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: mobile-first single column; the hero shows the request path through Luis's stack (Angular → .NET → K8s → AWS) as the signature element. Columns open up from 720px. */
+:root {
+  --paper: #f3f4f0;
+  --surface: #ffffff;
+  --ink: #141826;
+  --muted: #5b6072;
+  --line: #d9dbe3;
+  --accent: #2f45d8;
+  --accent-soft: #e3e7fb;
+  --signal: #1f8a5b;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --gutter: 20px;
+  --radius: 10px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0e1120;
+    --surface: #161a2d;
+    --ink: #eceef6;
+    --muted: #9ba1b8;
+    --line: #2a3048;
+    --accent: #8fa0ff;
+    --accent-soft: #1f2650;
+    --signal: #4fd39a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0e1120;
+  --surface: #161a2d;
+  --ink: #eceef6;
+  --muted: #9ba1b8;
+  --line: #2a3048;
+  --accent: #8fa0ff;
+  --accent-soft: #1f2650;
+  --signal: #4fd39a;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+}
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+
+/* Language switch: paired spans, one hidden */
+html[data-lang="es"] [lang="en"], html[data-lang="en"] [lang="es"] { display: none !important; }
+
+.wrap { width: 100%; max-width: 1040px; margin: 0 auto; padding: 0 var(--gutter); }
+
+/* Header */
+.top {
+  position: sticky; top: 0; z-index: 10;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 56px; }
+.mark { font-family: var(--font-display); font-weight: 800; font-size: 20px; color: var(--ink); text-decoration: none; letter-spacing: -0.02em; }
+.mark span { color: var(--accent); }
+.nav { display: none; gap: 22px; }
+.nav a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; }
+.nav a:hover { color: var(--ink); }
+.lang {
+  display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--surface);
+}
+.lang button {
+  font: 500 12px/1 var(--font-mono); letter-spacing: 0.06em;
+  border: 0; background: transparent; color: var(--muted);
+  padding: 7px 11px; border-radius: 999px; cursor: pointer; min-width: 40px;
+}
+.lang button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+
+/* Hero */
+.hero { padding: 40px 0 36px; }
+.status {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: 500 12px/1.3 var(--font-mono); color: var(--muted);
+  padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface);
+}
+.status i { width: 8px; height: 8px; border-radius: 50%; background: var(--signal); box-shadow: 0 0 0 3px color-mix(in srgb, var(--signal) 22%, transparent); flex: none; }
+.hero h1 {
+  font-size: clamp(44px, 13vw, 104px);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 0.92;
+  margin: 22px 0 14px;
+}
+.hero h1 .last { display: block; color: var(--accent); }
+.role { font: 500 15px/1.4 var(--font-mono); color: var(--muted); }
+.pitch { font-size: 19px; line-height: 1.5; max-width: 34ch; margin-top: 20px; }
+
+/* Signature: the request path */
+.path {
+  margin-top: 30px;
+  display: grid; grid-template-columns: 1fr; gap: 0;
+  border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface);
+  overflow: hidden;
+}
+.hop { display: grid; grid-template-columns: 28px 1fr auto; align-items: center; gap: 10px; padding: 12px 14px; position: relative; }
+.hop + .hop { border-top: 1px dashed var(--line); }
+.hop .n { font: 500 11px/1 var(--font-mono); color: var(--muted); }
+.hop b { font-family: var(--font-display); font-weight: 700; font-size: 18px; letter-spacing: -0.01em; }
+.hop small { font: 400 12px/1.2 var(--font-mono); color: var(--muted); text-align: right; }
+.hop:nth-child(1) .n, .hop:nth-child(4) .n { color: var(--accent); }
+.path-cap { font: 400 12px/1.4 var(--font-mono); color: var(--muted); margin-top: 10px; }
+
+.cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; justify-content: center;
+  font: 600 15px/1 var(--font-body); text-decoration: none;
+  padding: 14px 18px; border-radius: 999px; border: 1px solid var(--ink);
+  color: var(--ink); background: transparent; min-height: 48px; flex: 1 1 140px;
+  transition: transform .15s ease, background .15s ease;
+}
+.btn.primary { background: var(--ink); color: var(--paper); }
+.btn:hover { transform: translateY(-1px); }
+.btn svg { width: 18px; height: 18px; flex: none; }
+
+/* Sections */
+section.block { padding: 48px 0; border-top: 1px solid var(--line); }
+.label { font: 500 12px/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; display: block; }
+.block h2 { font-size: clamp(30px, 7vw, 44px); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 22px; }
+.prose { max-width: 62ch; font-size: 17px; display: grid; gap: 14px; }
+.prose strong { font-weight: 600; }
+
+/* Experience timeline */
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.job { position: relative; padding: 0 0 30px 26px; border-left: 2px solid var(--line); }
+.job:last-child { padding-bottom: 0; border-left-color: transparent; }
+.job::before {
+  content: ""; position: absolute; left: -7px; top: 4px; width: 12px; height: 12px; border-radius: 50%;
+  background: var(--paper); border: 2px solid var(--muted);
+}
+.job.now::before { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+.when { font: 500 13px/1.3 var(--font-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.job h3 { font-size: 21px; font-weight: 700; letter-spacing: -0.01em; margin-top: 6px; }
+.org { font-weight: 500; color: var(--muted); margin-top: 2px; }
+.job p.d { margin-top: 10px; max-width: 62ch; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 0; padding: 0; list-style: none; }
+.tags li { font: 400 12px/1 var(--font-mono); padding: 6px 9px; border-radius: 6px; background: var(--accent-soft); color: var(--ink); }
+
+/* Projects */
+.projects { display: grid; grid-template-columns: 1fr; gap: 14px; }
+.proj { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+.proj .k { font: 500 12px/1 var(--font-mono); color: var(--muted); }
+.proj h3 { font-size: 21px; font-weight: 700; letter-spacing: -0.01em; }
+.proj p { color: var(--muted); }
+.proj .tags { margin-top: auto; padding-top: 6px; }
+.flow { display: flex; align-items: center; gap: 8px; font: 500 13px/1 var(--font-mono); }
+.flow span { padding: 7px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); }
+.flow svg { width: 22px; height: 12px; color: var(--accent); flex: none; }
+
+/* Skills */
+.skills { display: grid; grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--line); }
+.skill { display: grid; grid-template-columns: 1fr; gap: 10px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.skill h3 { font-size: 15px; font-family: var(--font-mono); font-weight: 500; color: var(--muted); }
+.skill .tags li { background: transparent; border: 1px solid var(--line); font-size: 13px; padding: 7px 10px; }
+.skill .tags li.core { border-color: var(--accent); color: var(--accent); }
+
+/* Education */
+.edu { display: grid; grid-template-columns: 1fr; gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+.card h3 { font-size: 19px; font-weight: 700; }
+.card p { color: var(--muted); margin-top: 6px; }
+.meter { margin-top: 14px; display: grid; gap: 10px; }
+.meter div { display: grid; grid-template-columns: 70px 1fr auto; align-items: center; gap: 10px; font-size: 14px; }
+.bar { height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--accent); border-radius: 3px; }
+.meter small { font: 400 12px/1 var(--font-mono); color: var(--muted); }
+
+/* Contact */
+.contact { padding: 56px 0 40px; border-top: 1px solid var(--line); }
+.contact h2 { font-size: clamp(34px, 9vw, 64px); font-weight: 800; letter-spacing: -0.04em; max-width: 14ch; }
+.contact p { color: var(--muted); margin-top: 14px; max-width: 48ch; font-size: 17px; }
+.links { display: grid; gap: 10px; margin-top: 26px; }
+.links a {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 16px 18px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface);
+  color: var(--ink); text-decoration: none; transition: border-color .15s ease;
+}
+.links a:hover { border-color: var(--accent); }
+.links b { font-family: var(--font-display); font-size: 18px; font-weight: 700; }
+.links small { font: 400 13px/1.2 var(--font-mono); color: var(--muted); overflow-wrap: anywhere; }
+.links .l { display: grid; gap: 4px; min-width: 0; }
+.links svg { width: 20px; height: 20px; color: var(--accent); flex: none; }
+footer { padding: 24px 0 40px; font: 400 12px/1.5 var(--font-mono); color: var(--muted); }
+
+/* ---------- Motion ---------- */
+/* Hero load sequence */
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes wordUp { from { transform: translateY(105%); } to { transform: none; } }
+.hero .status { animation: rise .6s cubic-bezier(.2,.7,.2,1) both; }
+.hero h1 .w { display: block; overflow: hidden; padding-bottom: .04em; }
+.hero h1 .w > span { display: block; animation: wordUp .9s cubic-bezier(.2,.8,.2,1) both; }
+.hero h1 .w:nth-child(1) > span { animation-delay: .1s; }
+.hero h1 .w:nth-child(2) > span { animation-delay: .22s; }
+.hero .role { animation: rise .6s .45s cubic-bezier(.2,.7,.2,1) both; }
+.hero .pitch { animation: rise .6s .55s cubic-bezier(.2,.7,.2,1) both; }
+.hero .path, .hero .path-cap { animation: rise .7s .65s cubic-bezier(.2,.7,.2,1) both; }
+.hero .cta { animation: rise .6s .8s cubic-bezier(.2,.7,.2,1) both; }
+
+/* Status dot pulse */
+@keyframes ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--signal) 55%, transparent); } 100% { box-shadow: 0 0 0 9px transparent; } }
+.status i { animation: ping 1.8s ease-out infinite; }
+
+/* A request travelling through the stack, hop by hop */
+@keyframes hopLit {
+  0% { background: transparent; }
+  6%, 18% { background: var(--accent-soft); }
+  28%, 100% { background: transparent; }
+}
+@keyframes hopNum {
+  0% { color: var(--muted); transform: none; }
+  6%, 18% { color: var(--accent); transform: translateX(3px); }
+  28%, 100% { color: var(--muted); transform: none; }
+}
+.hop { animation: hopLit 4s 1.4s ease-in-out infinite; }
+.hop .n, .hop b { display: inline-block; }
+.hop b { animation: hopNum 4s 1.4s ease-in-out infinite; }
+.hop:nth-child(2), .hop:nth-child(2) b { animation-delay: 1.9s; }
+.hop:nth-child(3), .hop:nth-child(3) b { animation-delay: 2.4s; }
+.hop:nth-child(4), .hop:nth-child(4) b { animation-delay: 2.9s; }
+
+/* Scroll reveal: elements stay visible; the animation only plays when they enter view */
+@keyframes reveal { from { opacity: .0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+.reveal.in { animation: reveal .75s cubic-bezier(.2,.7,.2,1) both; animation-delay: var(--d, 0s); }
+
+/* Timeline dot pops, line draws */
+@keyframes pop { 0% { transform: scale(0); } 70% { transform: scale(1.35); } 100% { transform: scale(1); } }
+.job.in::before { animation: pop .5s calc(var(--d, 0s) + .2s) cubic-bezier(.3,1.6,.5,1) both; }
+
+/* Language bars fill */
+@keyframes fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.bar i { transform-origin: left; }
+.card.in .bar i { animation: fill 1.1s .3s cubic-bezier(.2,.7,.2,1) both; }
+.card.in .meter div + div .bar i { animation-delay: .5s; }
+
+/* Hover micro-interactions */
+.proj, .card { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+.proj:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 14px 30px -18px color-mix(in srgb, var(--accent) 60%, transparent); }
+.flow svg { transition: transform .3s ease; }
+.proj:hover .flow svg { transform: translateX(4px); }
+.links svg { transition: transform .2s ease; }
+.links a:hover svg { transform: translate(3px, -3px); }
+.tags li { transition: background .2s ease, color .2s ease; }
+.skill .tags li:hover { background: var(--accent); color: var(--paper); border-color: var(--accent); }
+
+/* Language swap crossfade */
+@keyframes swapIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+html.swapping main [lang], html.swapping .nav [lang] { animation: swapIn .35s ease-out both; }
+
+/* Language switch: sliding pill */
+.lang { position: relative; }
+.lang::before {
+  content: ""; position: absolute; top: 3px; bottom: 3px; left: 3px; width: calc(50% - 3px);
+  border-radius: 999px; background: var(--ink); transition: transform .3s cubic-bezier(.3,1.3,.5,1);
+}
+html[data-lang="en"] .lang::before { transform: translateX(100%); }
+.lang button { position: relative; z-index: 1; transition: color .25s ease; }
+.lang button[aria-pressed="true"] { background: transparent; color: var(--paper); }
+
+/* Scroll progress */
+.progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; background: var(--accent); transform-origin: left; transform: scaleX(0); z-index: 20; }
+
+/* ≥ 720px */
+@media (min-width: 720px) {
+  :root { --gutter: 32px; }
+  .nav { display: flex; }
+  .hero { padding: 72px 0 60px; }
+  .hero-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 48px; align-items: end; }
+  .path { margin-top: 0; }
+  .cta { margin-top: 32px; }
+  .btn { flex: 0 0 auto; }
+  section.block { padding: 72px 0; }
+  .split { display: grid; grid-template-columns: 220px 1fr; gap: 40px; }
+  .projects { grid-template-columns: repeat(2, 1fr); }
+  .proj.wide { grid-column: span 2; }
+  .skill { grid-template-columns: 200px 1fr; align-items: baseline; }
+  .edu { grid-template-columns: 1fr 1fr; }
+  .links { grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 1000px) {
+  .projects { grid-template-columns: repeat(3, 1fr); }
+  .proj.wide { grid-column: span 1; }
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#inicio" aria-label="Inicio">LM<span>.</span></a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#sobre-mi"><span lang="es">Sobre mí</span><span lang="en">About</span></a>
+      <a href="#experiencia"><span lang="es">Experiencia</span><span lang="en">Experience</span></a>
+      <a href="#proyectos"><span lang="es">Proyectos</span><span lang="en">Projects</span></a>
+      <a href="#skills">Skills</a>
+      <a href="#contacto"><span lang="es">Contacto</span><span lang="en">Contact</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Idioma / Language">
+      <button type="button" id="btn-es" data-set="es" aria-pressed="false">ES</button>
+      <button type="button" id="btn-en" data-set="en" aria-pressed="true">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="inicio">
+    <div class="wrap">
+      <span class="status"><i aria-hidden="true"></i>
+        <span lang="es">Cochabamba, Bolivia · GMT−4 · Abierto a trabajo remoto</span>
+        <span lang="en">Cochabamba, Bolivia · GMT−4 · Open to remote work</span>
+      </span>
+      <div class="hero-grid">
+        <div>
+          <h1><span class="w"><span>Luis Montano</span></span><span class="w last"><span>Rojas</span></span></h1>
+          <p class="role">Full Stack Developer · Angular · .NET 8 · AWS</p>
+          <p class="pitch">
+            <span lang="es">Construyo aplicaciones web de punta a punta: la interfaz en Angular, los microservicios en .NET y el despliegue en AWS, con pruebas desde el primer commit.</span>
+            <span lang="en">I build web apps end to end: the Angular front end, the .NET microservices behind it, and the AWS deployment, with tests from the first commit.</span>
+          </p>
+        </div>
+        <div>
+          <div class="path" aria-label="Stack">
+            <div class="hop"><span class="n">01</span><b>Angular</b><small>UI</small></div>
+            <div class="hop"><span class="n">02</span><b>.NET 8</b><small><span lang="es">microservicios</span><span lang="en">microservices</span></small></div>
+            <div class="hop"><span class="n">03</span><b>Kubernetes</b><small>Docker</small></div>
+            <div class="hop"><span class="n">04</span><b>AWS</b><small>S3 · MySQL</small></div>
+          </div>
+          <p class="path-cap">
+            <span lang="es">El recorrido de una petición por mi stack, de la pantalla a los datos.</span>
+            <span lang="en">The path a request takes through my stack, from screen to data.</span>
+          </p>
+        </div>
+      </div>
+      <div class="cta">
+        <a class="btn primary" href="https://www.linkedin.com/in/luis-montano-rojas/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5zM3 9.75h4V21H3zM9.5 9.75h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1V21h-4v-4.9c0-1.17-.02-2.68-1.63-2.68-1.64 0-1.89 1.28-1.89 2.6V21h-4z"/></svg>
+          LinkedIn
+        </a>
+        <a class="btn" href="https://github.com/LuisMRojas" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.26 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="sobre-mi">
+    <div class="wrap split">
+      <div>
+        <span class="label"><span lang="es">Sobre mí</span><span lang="en">About</span></span>
+        <h2><span lang="es">De la idea al hosting</span><span lang="en">From idea to hosting</span></h2>
+      </div>
+      <div class="prose">
+        <p lang="es">Soy desarrollador Full Stack con cerca de <strong>5 años de experiencia</strong> construyendo aplicaciones con Angular y .NET sobre AWS y Kubernetes. Trabajo con <strong>TDD</strong> y arquitectura de microservicios.</p>
+        <p lang="es">Antes fui desarrollador WordPress freelance, así que también sé tratar con clientes y llevar un sitio desde la primera idea hasta el hosting, con SSL y SEO incluidos.</p>
+        <p lang="es">Ahora busco oportunidades <strong>remotas</strong> donde aportar en producto, código y trato con el equipo.</p>
+        <p lang="en">I'm a Full Stack developer with about <strong>5 years of experience</strong> building applications with Angular and .NET on AWS and Kubernetes. I work test-first (<strong>TDD</strong>) on microservice architectures.</p>
+        <p lang="en">Before that I was a freelance WordPress developer, so I'm used to working directly with clients and taking a site from first idea to hosting, SSL and SEO included.</p>
+        <p lang="en">I'm now looking for <strong>remote</strong> roles where I can contribute to product, code and team.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="experiencia">
+    <div class="wrap split">
+      <div>
+        <span class="label"><span lang="es">Experiencia</span><span lang="en">Experience</span></span>
+        <h2><span lang="es">Dónde he trabajado</span><span lang="en">Where I've worked</span></h2>
+      </div>
+      <ol class="timeline">
+        <li class="job now">
+          <p class="when"><span lang="es">nov 2021 – actualidad</span><span lang="en">Nov 2021 – present</span></p>
+          <h3>Software Engineer 1</h3>
+          <p class="org">NICE CXone</p>
+          <p class="d" lang="es">Desarrollo en Angular y microservicios .NET sobre AWS y Kubernetes, siempre con TDD. Mi feature más grande fue una migración de datos de MySQL a S3. Entré como practicante en noviembre de 2021 corrigiendo bugs con TDD y pasé a ingeniero en mayo de 2022.</p>
+          <p class="d" lang="en">Angular and .NET microservices on AWS and Kubernetes, always test-first. My largest feature was a data migration from MySQL to S3. I joined as an intern in November 2021 fixing bugs with TDD and became an engineer in May 2022.</p>
+          <ul class="tags"><li>Angular</li><li>.NET</li><li>AWS</li><li>Kubernetes</li><li>MySQL → S3</li><li>TDD</li></ul>
+        </li>
+        <li class="job">
+          <p class="when"><span lang="es">sep 2021 – oct 2022</span><span lang="en">Sep 2021 – Oct 2022</span></p>
+          <h3><span lang="es">Desarrollador WordPress freelance</span><span lang="en">Freelance WordPress Developer</span></h3>
+          <p class="org"><span lang="es">Agencia de marketing turístico</span><span lang="en">Tourism marketing agency</span></p>
+          <p class="d" lang="es">Sitios para un hotel, un fotógrafo, un pintor y una naviera. PHP, CSS y JavaScript a diario con Elementor Pro, más SSL, configuración de hosting, SEO y trato directo con cada cliente.</p>
+          <p class="d" lang="en">Sites for a hotel, a photographer, a painter and a shipping company. Daily PHP, CSS and JavaScript with Elementor Pro, plus SSL, hosting setup, SEO and direct contact with each client.</p>
+          <ul class="tags"><li>WordPress</li><li>Elementor Pro</li><li>PHP</li><li>SEO</li><li>Hosting</li></ul>
+        </li>
+        <li class="job">
+          <p class="when"><span lang="es">ene – sep 2021</span><span lang="en">Jan – Sep 2021</span></p>
+          <h3><span lang="es">Desarrollador part-time</span><span lang="en">Part-time Developer</span></h3>
+          <p class="org">AlpaTech SRL</p>
+          <p class="d" lang="es">Proyectos 100% Angular: paneles de administración para sitios dinámicos y web apps, del diseño en Figma a la implementación.</p>
+          <p class="d" lang="en">Angular-only projects: admin panels for dynamic sites and web apps, from Figma design to implementation.</p>
+          <ul class="tags"><li>Angular</li><li>Angular Material</li><li>Bootstrap</li><li>Figma</li></ul>
+        </li>
+        <li class="job">
+          <p class="when"><span lang="es">ene – mar 2020</span><span lang="en">Jan – Mar 2020</span></p>
+          <h3><span lang="es">Practicante</span><span lang="en">Intern</span></h3>
+          <p class="org">TRUEXTEND</p>
+          <p class="d" lang="es">App interna de reserva de salas con .NET y Angular. Participé en el refactor del código en equipo y terminé dockerizando la aplicación.</p>
+          <p class="d" lang="en">Internal meeting-room booking app with .NET and Angular. I took part in the team refactor and ended up containerizing the app with Docker.</p>
+          <ul class="tags"><li>.NET</li><li>Angular</li><li>Docker</li><li><span lang="es">Refactorización</span><span lang="en">Refactoring</span></li></ul>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" id="proyectos">
+    <div class="wrap">
+      <span class="label"><span lang="es">Proyectos</span><span lang="en">Projects</span></span>
+      <h2><span lang="es">Trabajo destacado</span><span lang="en">Selected work</span></h2>
+      <div class="projects">
+        <article class="proj">
+          <span class="k">NICE CXone · <span lang="es">migración de datos</span><span lang="en">data migration</span></span>
+          <h3><span lang="es">De MySQL a S3</span><span lang="en">From MySQL to S3</span></h3>
+          <div class="flow" aria-hidden="true"><span>MySQL</span><svg viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 6h18M14 1l5 5-5 5"/></svg><span>S3</span></div>
+          <p lang="es">Mi feature más grande: mover datos de una base relacional a almacenamiento en S3 dentro de una plataforma de microservicios .NET, cubierto con pruebas antes de tocar producción.</p>
+          <p lang="en">My largest feature: moving data from a relational database into S3 storage inside a .NET microservice platform, covered by tests before touching production.</p>
+          <ul class="tags"><li>.NET 8</li><li>AWS S3</li><li>MySQL</li><li>TDD</li></ul>
+        </article>
+        <article class="proj">
+          <span class="k">TRUEXTEND · <span lang="es">app interna</span><span lang="en">internal app</span></span>
+          <h3><span lang="es">Reserva de salas</span><span lang="en">Room booking</span></h3>
+          <p lang="es">Aplicación para reservar salas de reunión. Refactor en equipo del código existente y empaquetado final en contenedores Docker.</p>
+          <p lang="en">An app for booking meeting rooms. A team refactor of the existing code, then packaged into Docker containers.</p>
+          <ul class="tags"><li>.NET</li><li>Angular</li><li>Docker</li></ul>
+        </article>
+        <article class="proj wide">
+          <span class="k"><span lang="es">Freelance · sitios para clientes</span><span lang="en">Freelance · client sites</span></span>
+          <h3><span lang="es">Sitios para turismo y negocios locales</span><span lang="en">Sites for tourism and local business</span></h3>
+          <p lang="es">Un hotel, un fotógrafo, un pintor, una naviera y una página de ejemplo para un negocio de pisos. Cada uno llevado del brief al dominio en línea.</p>
+          <p lang="en">A hotel, a photographer, a painter, a shipping company and a sample site for a flooring business. Each taken from brief to live domain.</p>
+          <ul class="tags"><li>WordPress</li><li>Elementor Pro</li><li>SEO</li><li>SSL</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="skills">
+    <div class="wrap">
+      <span class="label">Skills</span>
+      <h2><span lang="es">Con qué trabajo</span><span lang="en">What I work with</span></h2>
+      <div class="skills">
+        <div class="skill"><h3>Frontend</h3><ul class="tags"><li class="core">Angular</li><li>Angular Material</li><li>Bootstrap</li><li>Figma</li><li>WordPress / Elementor</li></ul></div>
+        <div class="skill"><h3>Backend</h3><ul class="tags"><li class="core">.NET 8</li><li><span lang="es">Microservicios</span><span lang="en">Microservices</span></li><li>PHP (WordPress)</li></ul></div>
+        <div class="skill"><h3><span lang="es">Cloud y datos</span><span lang="en">Cloud &amp; data</span></h3><ul class="tags"><li class="core">AWS</li><li>Kubernetes</li><li>Docker</li><li><span lang="es">MySQL · ~4 años</span><span lang="en">MySQL · ~4 yrs</span></li><li>S3</li></ul></div>
+        <div class="skill"><h3><span lang="es">Prácticas</span><span lang="en">Practices</span></h3><ul class="tags"><li class="core">TDD</li><li><span lang="es">Refactorización</span><span lang="en">Refactoring</span></li><li><span lang="es">Trato directo con clientes</span><span lang="en">Direct client work</span></li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="formacion">
+    <div class="wrap">
+      <span class="label"><span lang="es">Formación e idiomas</span><span lang="en">Education &amp; languages</span></span>
+      <div class="edu">
+        <div class="card">
+          <h3><span lang="es">Licenciatura en Ingeniería de Sistemas</span><span lang="en">B.Sc. in Systems Engineering</span></h3>
+          <p>Universidad Católica Boliviana “San Pablo” · Cochabamba</p>
+        </div>
+        <div class="card">
+          <h3><span lang="es">Idiomas</span><span lang="en">Languages</span></h3>
+          <div class="meter">
+            <div><span lang="es">Español</span><span lang="en">Spanish</span><span class="bar"><i style="width:100%"></i></span><small><span lang="es">Nativo</span><span lang="en">Native</span></small></div>
+            <div><span lang="es">Inglés</span><span lang="en">English</span><span class="bar"><i style="width:75%"></i></span><small>B2</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contacto">
+    <div class="wrap">
+      <span class="label"><span lang="es">Contacto</span><span lang="en">Contact</span></span>
+      <h2><span lang="es">¿Armamos algo juntos?</span><span lang="en">Let's build something.</span></h2>
+      <p lang="es">Busco roles remotos como Full Stack o Frontend con Angular. También tomo proyectos freelance en WordPress.</p>
+      <p lang="en">I'm looking for remote Full Stack or Angular front-end roles, and I take on freelance WordPress projects too.</p>
+      <div class="links">
+        <a href="https://www.linkedin.com/in/luis-montano-rojas/" target="_blank" rel="noopener">
+          <span class="l"><b>LinkedIn</b><small>linkedin.com/in/luis-montano-rojas</small></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </a>
+        <a href="https://github.com/LuisMRojas" target="_blank" rel="noopener">
+          <span class="l"><b>GitHub</b><small>github.com/LuisMRojas</small></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">© 2026 Luis Montano Rojas · Cochabamba, Bolivia</div>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+
+  /* ---- Language: switches every text on the page, plus labels and meta ---- */
+  var META = {
+    es: {
+      desc: 'Luis Montano Rojas, Full Stack Developer (Angular, .NET 8, AWS) en Cochabamba, Bolivia. Disponible para trabajo remoto.',
+      home: 'Inicio', nav: 'Secciones', group: 'Cambiar idioma', stack: 'Mi stack'
+    },
+    en: {
+      desc: 'Luis Montano Rojas, Full Stack Developer (Angular, .NET 8, AWS) based in Cochabamba, Bolivia. Available for remote work.',
+      home: 'Home', nav: 'Sections', group: 'Change language', stack: 'My stack'
+    }
+  };
+  function setLang(l, animate) {
+    var m = META[l];
+    root.setAttribute('data-lang', l);
+    root.setAttribute('lang', l);
+    document.querySelector('meta[name="description"]').setAttribute('content', m.desc);
+    document.querySelector('.mark').setAttribute('aria-label', m.home);
+    document.querySelector('.nav').setAttribute('aria-label', m.nav);
+    document.querySelector('.lang').setAttribute('aria-label', m.group);
+    document.querySelector('.path').setAttribute('aria-label', m.stack);
+    document.querySelectorAll('.lang button').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-set') === l));
+    });
+    if (animate) {
+      root.classList.remove('swapping');
+      void root.offsetWidth;
+      root.classList.add('swapping');
+      setTimeout(function () { root.classList.remove('swapping'); }, 400);
+    }
+    try { localStorage.setItem('lm-lang', l); } catch (e) {}
+  }
+  var start = null;
+  try { start = localStorage.getItem('lm-lang'); } catch (e) {}
+  if (start !== 'es' && start !== 'en') start = 'en';
+  setLang(start, false);
+  document.querySelectorAll('.lang button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var l = b.getAttribute('data-set');
+      if (l !== root.getAttribute('data-lang')) setLang(l, true);
+    });
+  });
+
+  /* ---- Scroll reveal (content is visible without it) ---- */
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var targets = [];
+  document.querySelectorAll('section.block, section.contact').forEach(function (sec) {
+    sec.querySelectorAll('.label, h2, .prose p, .job, .proj, .skill, .card, .links a, .contact p').forEach(function (el, i) {
+      el.classList.add('reveal');
+      el.style.setProperty('--d', Math.min(i, 6) * 0.08 + 's');
+      targets.push(el);
+    });
+  });
+  if (!reduce && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.1 });
+    targets.forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight) return; /* already on screen at load: leave it still */
+      io.observe(el);
+    });
+  }
+
+  /* ---- Scroll progress bar ---- */
+  var bar = document.getElementById('progress');
+  var ticking = false;
+  function upd() {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, window.scrollY / h) : 0) + ')';
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(upd); } }, { passive: true });
+  upd();
+})();
+</script>
+</body>
+</html>
